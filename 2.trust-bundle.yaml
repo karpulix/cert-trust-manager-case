@@ -1,0 +1,15 @@
+---
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: trust-bundle
+  namespace: cert-manager
+
+spec:
+  sources:
+    - secret:
+        name: "root-ca"
+        key: "tls.crt"
+  target:
+    configMap:
+      key: "ca-trust-bundle.pem"

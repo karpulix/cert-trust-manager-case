@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: letsencrypt--es-example-com
+  namespace: elasticsearch
+spec:
+  secretName: letsencrypt--es-example-com
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: es.example.com
+  dnsNames:
+    - es.example.com
+  renewBefore: 12h

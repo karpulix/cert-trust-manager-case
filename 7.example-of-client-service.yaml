@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service
+  namespace: my-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-service
+  template:
+    metadata:
+      labels:
+        app: my-service
+    spec:
+      containers:
+        - name: my-container
+          image: nginx
+          volumeMounts:
+            - name: ca-trust-bundle
+              mountPath: /ca-trust-bundle.pem
+              subPath: ca-trust-bundle.pem
+              readOnly: true
+      volumes:
+        - name: ca-trust-bundle
+          configMap:
+            name: trust-bundle-config

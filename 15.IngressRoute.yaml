@@ -1,0 +1,28 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: elasticsearch-ingress-route
+  namespace: elasticsearch
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+    secretName: letsencrypt--es-example-com
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`es.example.com`)
+      services:
+        - kind: Service
+          name: elasticsearch-es-http
+          port: 9200
+          scheme: https
+          serversTransport: el-tr
+      middlewares:
+        - name: redirect-to-https
+          namespace: elasticsearch
+        - name: redirect-www-to-non-www
+          namespace: elasticsearch

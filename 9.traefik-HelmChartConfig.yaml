@@ -1,0 +1,17 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    additionalVolumeMounts:
+    - name: trust-bundle-volume
+      mountPath: /etc/ssl/certs/ca-cert-CLUSTER-BUNDLE.pem
+      subPath: ca-trust-bundle.pem
+    deployment:
+      additionalVolumes:
+      - name: trust-bundle-volume
+        configMap:
+            name: trust-bundle

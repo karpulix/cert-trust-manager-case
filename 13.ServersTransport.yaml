@@ -1,0 +1,8 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: el-tr
+  namespace: elasticsearch
+spec:
+  serverName: elasticsearch-es-http.elasticsearch.svc
